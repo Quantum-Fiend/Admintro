@@ -1,0 +1,138 @@
+// ============================================
+// GLASSMORPHISM COMPONENTS
+// ============================================
+
+.glass-card {
+    @include glass(0.1, 10px);
+    border-radius: $radius-xl;
+    padding: $spacing-xl;
+    transition: all $transition-base;
+
+    &:hover {
+        @include glass(0.15, 15px);
+        transform: translateY(-5px);
+    }
+
+    &.glass-dark {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}
+
+.glass-button {
+    @include glass(0.15, 10px);
+    border-radius: $radius-lg;
+    padding: $spacing-md $spacing-xl;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all $transition-base;
+
+    &:hover {
+        @include glass(0.25, 15px);
+        transform: translateY(-2px);
+        @include neon-glow($neon-cyan, 0.3);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+.glass-input {
+    @include glass(0.1, 10px);
+    border-radius: $radius-md;
+    padding: $spacing-md;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: $fs-base;
+    width: 100%;
+    transition: all $transition-base;
+
+    &::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    &:focus {
+        outline: none;
+        @include glass(0.2, 15px);
+        border-color: $neon-cyan;
+        @include neon-glow($neon-cyan, 0.2);
+    }
+}
+
+.glass-sidebar {
+    @include glass(0.05, 20px);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 260px;
+    z-index: $z-fixed;
+    @include custom-scrollbar;
+    overflow-y: auto;
+}
+
+.glass-navbar {
+    @include glass(0.1, 20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: $spacing-md $spacing-xl;
+    position: sticky;
+    top: 0;
+    z-index: $z-sticky;
+    backdrop-filter: blur(20px);
+}
+
+.glass-modal {
+    @include glass(0.2, 30px);
+    border-radius: $radius-2xl;
+    padding: $spacing-2xl;
+    max-width: 500px;
+    margin: auto;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: $shadow-2xl;
+}
+
+.glass-badge {
+    @include glass(0.2, 5px);
+    border-radius: $radius-full;
+    padding: $spacing-xs $spacing-md;
+    font-size: $fs-xs;
+    font-weight: 600;
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-table {
+    @include glass(0.05, 10px);
+    border-radius: $radius-lg;
+    overflow: hidden;
+
+    thead {
+        background: rgba(255, 255, 255, 0.1);
+
+        th {
+            padding: $spacing-md;
+            font-weight: 600;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    }
+
+    tbody {
+        tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: background $transition-fast;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            td {
+                padding: $spacing-md;
+            }
+        }
+    }
+}

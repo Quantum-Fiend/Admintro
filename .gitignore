@@ -1,1 +1,12 @@
-.qodo
+/vendor/
+/node_modules/
+/public/css/
+/public/js/
+.env
+.DS_Store
+Thumbs.db
+*.log
+/storage/logs/*.log
+/storage/cache/*
+composer.lock
+package-lock.json

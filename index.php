@@ -1,144 +1,119 @@
-<!DOCTYPE html>
+<?php
 
+require_once __DIR__ . '/config/bootstrap.php';
 
-<html lang="en" xml:lang="en">
+use App\Controllers\AuthController;
+use App\Controllers\DashboardController;
+use App\Controllers\UserController;
 
+// Get the request URI and method
+$requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$requestMethod = $_SERVER['REQUEST_METHOD'];
 
+// Remove trailing slash
+$requestUri = rtrim($requestUri, '/');
+if (empty($requestUri)) {
+    $requestUri = '/';
+}
+
+// Simple routing
+switch ($requestUri) {
+    // Auth routes
+    case '/':
+        if ($requestMethod === 'GET') {
+            $controller = new AuthController();
+            $controller->showLogin();
+        }
+        break;
+        
+    case '/login':
+        if ($requestMethod === 'POST') {
+            $controller = new AuthController();
+            $controller->login();
+        } else {
+            header('Location: /');
+        }
+        break;
+        
+    case '/logout':
+        $controller = new AuthController();
+        $controller->logout();
+        break;
+        
+    // Dashboard routes
+    case '/dashboard':
+        $controller = new DashboardController();
+        $controller->index();
+        break;
+        
+    // Placeholder routes
+    case '/analytics':
+        $controller = new \App\Controllers\PlaceholderController();
+        $controller->analytics();
+        break;
+
+    case '/settings':
+        $controller = new \App\Controllers\PlaceholderController();
+        $controller->settings();
+        break;
+
+    case '/activity':
+        $controller = new \App\Controllers\PlaceholderController();
+        $controller->activity();
+        break;
+
+    // User routes
+    case '/users':
+        if ($requestMethod === 'GET') {
+            $controller = new UserController();
+            $controller->index();
+        }
+        break;
+        
+    case '/users/create':
+    // ... rest of code
+        if ($requestMethod === 'GET') {
+            $controller = new UserController();
+            $controller->create();
+        } elseif ($requestMethod === 'POST') {
+            $controller = new UserController();
+            $controller->store();
+        }
+        break;
+        
+    // Handle user edit/delete with ID
+    default:
+        if (preg_match('/^\/users\/(\d+)\/edit$/', $requestUri, $matches)) {
+            $controller = new UserController();
+            $controller->edit($matches[1]);
+        } elseif (preg_match('/^\/users\/(\d+)\/update$/', $requestUri, $matches)) {
+            $controller = new UserController();
+            $controller->update($matches[1]);
+        } elseif (preg_match('/^\/users\/(\d+)\/delete$/', $requestUri, $matches)) {
+            $controller = new UserController();
+            $controller->delete($matches[1]);
+        } else {
+            // 404 Not Found
+            http_response_code(404);
+            echo '<!DOCTYPE html>
+<html>
 <head>
-   <title>LOGIN</title>
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-   <link rel="stylesheet" type="text/css" href="styles.css">
-   <style>
-   @import url('https://fonts.googleapis.com/css?family=Numans');
-
-   html,
-   body {
-      background-image: url('http://getwallpapers.com/wallpaper/full/a/5/d/544750.jpg');
-      background-size: cover;
-      background-repeat: no-repeat;
-      height: 100%;
-      font-family: 'Numans', sans-serif;
-   }
-
-   .container {
-      height: 100%;
-      align-content: center;
-   }
-
-   .card {
-      height: 370px;
-      margin-top: auto;
-      margin-bottom: auto;
-      width: 400px;
-      background-color: rgba(0, 0, 0, 0.5) !important;
-   }
-
-   .social_icon span {
-      font-size: 60px;
-      margin-left: 10px;
-      color: #FFC312;
-   }
-
-   .social_icon span:hover {
-      color: white;
-      cursor: pointer;
-   }
-
-   .card-header h3 {
-      color: white;
-   }
-
-   .social_icon {
-      position: absolute;
-      right: 20px;
-      top: -45px;
-   }
-
-   .input-group-prepend span {
-      width: 50px;
-      background-color: #FFC312;
-      color: black;
-      border: 0 !important;
-   }
-
-   input:focus {
-      outline: 0 0 0 0 !important;
-      box-shadow: 0 0 0 0 !important;
-
-   }
-
-   .remember {
-      color: white;
-   }
-
-   .remember input {
-      width: 20px;
-      height: 20px;
-      margin-left: 15px;
-      margin-right: 5px;
-   }
-
-   .login_btn {
-      color: black;
-      background-color: #FFC312;
-      width: 100px;
-   }
-
-   .login_btn:hover {
-      color: black;
-      background-color: white;
-   }
-
-   .links {
-      color: white;
-   }
-
-   .links a {
-      margin-left: 4px;
-   }
-   </style>
+    <title>404 - Page Not Found</title>
+    <link rel="stylesheet" href="/public/css/app.css">
 </head>
-
 <body>
-
-   <div class="container">
-      <div class="d-flex justify-content-center h-100">
-         <div class="card">
-            <div class="card-header">
-               <h3>LOGIN</h3>
-               <div class="d-flex justify-content-end social_icon">
-                  <span><i class="fab fa-facebook-square"></i></span>
-                  <span><i class="fab fa-google-plus-square"></i></span>
-                  <span><i class="fab fa-twitter-square"></i></span>
-               </div>
-            </div>
-            <div class="card-body">
-               <form class="user" method="POST" action="login.php">
-                  <div class="input-group form-group">
-                     <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-user"></i></span>
-                     </div>
-                     <input type="text" class="form-control" name="username" placeholder="username">
-
-                  </div>
-                  <div class="input-group form-group">
-                     <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-key"></i></span>
-                     </div>
-                     <input type="password" class="form-control" name="password" placeholder="password">
-                  </div>
-                  <div class="form-group">
-
-                     <button type="submit" name="login_btn" class="btn btn-primary btn-user btn-block"> Login </button>
-                  </div>
-               </form>
-            </div>
-         </div>
-      </div>
-   </div>
+    <div style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+        <div class="glass-card" style="text-align: center; max-width: 500px;">
+            <h1 style="font-size: 6rem; margin: 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">404</h1>
+            <h2 style="color: white; margin: 1rem 0;">Page Not Found</h2>
+            <p style="color: rgba(255,255,255,0.7); margin-bottom: 2rem;">The page you are looking for does not exist.</p>
+            <a href="/dashboard" class="btn btn-primary">
+                <i class="fas fa-home"></i> Go to Dashboard
+            </a>
+        </div>
+    </div>
 </body>
-
-</html>
+</html>';
+        }
+        break;
+}

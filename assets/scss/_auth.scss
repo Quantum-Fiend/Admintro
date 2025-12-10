@@ -1,0 +1,111 @@
+// ============================================
+// AUTHENTICATION PAGES
+// ============================================
+
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-xl;
+    position: relative;
+    z-index: 1;
+}
+
+.login-box {
+    max-width: 450px;
+    width: 100%;
+    @extend .glass-card;
+    padding: $spacing-2xl;
+    animation: fadeIn 0.6s ease-out, float 6s ease-in-out infinite;
+
+    // Add a darker backing for better contrast
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: $spacing-2xl;
+
+    .login-logo {
+        font-size: $fs-3xl;
+        @include gradient-text($primary-gradient);
+        font-family: $font-heading;
+        font-weight: 700;
+        margin-bottom: $spacing-xs;
+        animation: glowPulse 3s ease-in-out infinite;
+
+        i {
+            margin-right: $spacing-sm;
+        }
+    }
+
+    .login-subtitle {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: $fs-base;
+    }
+}
+
+.alert {
+    padding: $spacing-md;
+    border-radius: $radius-md;
+    margin-bottom: $spacing-lg;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    animation: slideInLeft 0.5s ease-out;
+
+    i {
+        font-size: $fs-lg;
+    }
+
+    &.alert-error {
+        background: rgba(245, 87, 108, 0.2);
+        border: 1px solid rgba(245, 87, 108, 0.3);
+        color: #ffbdc5;
+        @include neon-glow($neon-pink, 0.1);
+    }
+
+    &.alert-success {
+        background: rgba(67, 233, 123, 0.2);
+        border: 1px solid rgba(67, 233, 123, 0.3);
+        color: #d1fae5;
+        @include neon-glow($neon-cyan, 0.1);
+    }
+}
+
+.input-icon {
+    position: relative;
+
+    i {
+        position: absolute;
+        left: $spacing-md;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.5);
+        z-index: 2;
+    }
+
+    input {
+        padding-left: 3rem;
+    }
+}
+
+.forgot-password {
+    text-align: right;
+    margin-top: $spacing-sm;
+
+    a {
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        font-size: $fs-sm;
+        transition: color $transition-base;
+
+        &:hover {
+            color: $neon-cyan;
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+        }
+    }
+}

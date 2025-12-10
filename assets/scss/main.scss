@@ -1,0 +1,447 @@
+// ============================================
+// MAIN SCSS FILE
+// ============================================
+
+// Import Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+// Import partials
+@import 'variables';
+@import 'mixins';
+@import 'animations';
+@import 'glassmorphism';
+@import 'auth';
+
+// ============================================
+// GLOBAL STYLES
+// ============================================
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    @include smooth-scroll;
+}
+
+body {
+    font-family: $font-primary;
+    font-size: $fs-base;
+    line-height: 1.6;
+    color: $dark-text;
+    background: $dark-gradient;
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    min-height: 100vh;
+    @include custom-scrollbar;
+}
+
+// ============================================
+// LAYOUT
+// ============================================
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 260px;
+    padding: $spacing-xl;
+    position: relative;
+    z-index: 1;
+
+    // Centered layout container
+    >.navbar,
+    >.grid,
+    >.card {
+        max-width: 1400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @media (max-width: $breakpoint-lg) {
+        margin-left: 0;
+    }
+}
+
+// ============================================
+// SIDEBAR
+// ============================================
+
+.sidebar {
+    @extend .glass-sidebar;
+
+    .sidebar-header {
+        padding: $spacing-xl;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+        .logo {
+            @include gradient-text($primary-gradient);
+            font-family: $font-heading;
+            font-size: $fs-2xl;
+            font-weight: 700;
+            text-decoration: none;
+        }
+    }
+
+    .sidebar-menu {
+        padding: $spacing-lg 0;
+        list-style: none;
+
+        .menu-item {
+            margin: $spacing-xs $spacing-md;
+
+            a {
+                display: flex;
+                align-items: center;
+                padding: $spacing-md;
+                color: rgba(255, 255, 255, 0.7);
+                text-decoration: none;
+                border-radius: $radius-md;
+                transition: all $transition-base;
+
+                i {
+                    margin-right: $spacing-md;
+                    font-size: $fs-lg;
+                }
+
+                &:hover,
+                &.active {
+                    background: rgba(255, 255, 255, 0.1);
+                    color: white;
+                    @include neon-glow($neon-cyan, 0.2);
+                }
+            }
+        }
+    }
+
+    .sidebar-footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: $spacing-lg;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: $spacing-md;
+
+            .avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: $radius-full;
+                @include glass(0.2, 5px);
+            }
+
+            .user-details {
+                flex: 1;
+
+                .name {
+                    font-weight: 600;
+                    color: white;
+                    font-size: $fs-sm;
+                }
+
+                .role {
+                    font-size: $fs-xs;
+                    color: rgba(255, 255, 255, 0.6);
+                }
+            }
+        }
+    }
+}
+
+// ============================================
+// NAVBAR
+// ============================================
+
+.navbar {
+    @extend .glass-navbar;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .navbar-left {
+        display: flex;
+        align-items: center;
+        gap: $spacing-lg;
+
+        .page-title {
+            font-family: $font-heading;
+            font-size: $fs-2xl;
+            font-weight: 600;
+            color: white;
+        }
+    }
+
+    .navbar-right {
+        display: flex;
+        align-items: center;
+        gap: $spacing-lg;
+
+        .notification-icon,
+        .theme-toggle {
+            position: relative;
+            cursor: pointer;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: $fs-xl;
+            transition: color $transition-base;
+
+            &:hover {
+                color: white;
+            }
+
+            .badge {
+                position: absolute;
+                top: -5px;
+                right: -5px;
+                background: $neon-pink;
+                color: white;
+                font-size: $fs-xs;
+                padding: 2px 6px;
+                border-radius: $radius-full;
+                @include neon-glow($neon-pink, 0.5);
+            }
+        }
+    }
+}
+
+// ============================================
+// CARDS
+// ============================================
+
+.card {
+    @extend .glass-card;
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: $spacing-lg;
+        padding-bottom: $spacing-md;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+        .card-title {
+            font-family: $font-heading;
+            font-size: $fs-xl;
+            font-weight: 600;
+            color: white;
+        }
+    }
+
+    .card-body {
+        color: rgba(255, 255, 255, 0.8);
+    }
+}
+
+.stat-card {
+    @extend .glass-card;
+    text-align: center;
+
+    .stat-icon {
+        width: 60px;
+        height: 60px;
+        margin: 0 auto $spacing-md;
+        @include flex-center;
+        border-radius: $radius-full;
+        font-size: $fs-2xl;
+
+        &.primary {
+            @include gradient-bg($primary-gradient);
+            @include neon-glow($neon-purple, 0.3);
+        }
+
+        &.success {
+            @include gradient-bg($success-gradient);
+            @include neon-glow($neon-cyan, 0.3);
+        }
+
+        &.danger {
+            @include gradient-bg($danger-gradient);
+            @include neon-glow($neon-pink, 0.3);
+        }
+    }
+
+    .stat-value {
+        font-size: $fs-3xl;
+        font-weight: 700;
+        color: white;
+        margin-bottom: $spacing-xs;
+    }
+
+    .stat-label {
+        font-size: $fs-sm;
+        color: rgba(255, 255, 255, 0.6);
+    }
+}
+
+// ============================================
+// BUTTONS
+// ============================================
+
+.btn {
+    @extend .glass-button;
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-sm;
+    text-decoration: none;
+
+    &.btn-primary {
+        @include gradient-bg($primary-gradient);
+        animation: gradientShift 3s ease infinite;
+    }
+
+    &.btn-success {
+        @include gradient-bg($success-gradient);
+    }
+
+    &.btn-danger {
+        @include gradient-bg($danger-gradient);
+    }
+
+    &.btn-sm {
+        padding: $spacing-sm $spacing-md;
+        font-size: $fs-sm;
+    }
+
+    &.btn-lg {
+        padding: $spacing-lg $spacing-2xl;
+        font-size: $fs-lg;
+    }
+}
+
+// ============================================
+// FORMS
+// ============================================
+
+.form-group {
+    margin-bottom: $spacing-lg;
+
+    label {
+        display: block;
+        margin-bottom: $spacing-sm;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+        font-size: $fs-sm;
+    }
+
+    input,
+    textarea,
+    select {
+        @extend .glass-input;
+    }
+
+    textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+}
+
+// ============================================
+// TABLE
+// ============================================
+
+.table-container {
+    @extend .glass-table;
+    width: 100%;
+
+    table {
+        width: 100%;
+        color: rgba(255, 255, 255, 0.9);
+    }
+}
+
+// ============================================
+// UTILITIES
+// ============================================
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.mt-1 {
+    margin-top: $spacing-sm;
+}
+
+.mt-2 {
+    margin-top: $spacing-md;
+}
+
+.mt-3 {
+    margin-top: $spacing-lg;
+}
+
+.mt-4 {
+    margin-top: $spacing-xl;
+}
+
+.mb-1 {
+    margin-bottom: $spacing-sm;
+}
+
+.mb-2 {
+    margin-bottom: $spacing-md;
+}
+
+.mb-3 {
+    margin-bottom: $spacing-lg;
+}
+
+.mb-4 {
+    margin-bottom: $spacing-xl;
+}
+
+.grid {
+    display: grid;
+    gap: $spacing-lg;
+
+    &.grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+
+        @media (max-width: $breakpoint-md) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &.grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+
+        @media (max-width: $breakpoint-lg) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (max-width: $breakpoint-md) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &.grid-4 {
+        grid-template-columns: repeat(4, 1fr);
+
+        @media (max-width: $breakpoint-xl) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media (max-width: $breakpoint-lg) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (max-width: $breakpoint-md) {
+            grid-template-columns: 1fr;
+        }
+    }
+}
