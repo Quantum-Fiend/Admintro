@@ -2,24 +2,27 @@
 
 A robust, secure, and aesthetically futuristic Admin Dashboard built with vanilla PHP, modern SCSS, and MySQL. This project demonstrates a structured MVC architecture, secure authentication, and a responsive "Glassmorphism" UI design.
 
-![Dashboard Preview](https://via.placeholder.com/800x400?text=Dashboard+Preview) 
-*(Note: Replace with actual screenshot)*
+![Dashboard Preview](https://via.placeholder.com/800x400?text=Dashboard+Preview)
+_(Note: Replace with actual screenshot)_
 
 ## ✨ Features
 
 ### 🔐 Security & Authentication
+
 - **Secure Login System**: Built with modern password hashing (Bcrypt) and session management.
 - **CSRF Protection**: Integrated Cross-Site Request Forgery protection on all forms.
 - **Validation**: Strict server-side input validation using `Respect/Validation`.
 - **Authorization**: Role-based access control (Admin/User).
 
 ### 🎨 UI/UX Design
+
 - **Futuristic Theme**: Custom Dark Gradient composed of linear gradients and neon accents.
 - **Glassmorphism**: Frosted glass effects on cards, tables, and sidebars using backdrop-filter.
 - **Responsive Layout**: Mobile-first grid system that adapts to all screen sizes.
 - **Micro-animations**: Smooth transitions, hover effects, and loading states.
 
 ### 🛠️ Functionalities
+
 - **User Management**: Create, Read, Update, Delete (CRUD) users with specific roles.
 - **Dashboard Analytics**: Real-time overview of key metrics (Users, Activity, etc.).
 - **Activity Logging**: Tracks key actions (Login, User Creation) for auditing.
@@ -59,6 +62,7 @@ project-admin/
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - PHP >= 8.0
 - Composer
 - MySQL
@@ -66,25 +70,30 @@ project-admin/
 ### Installation
 
 1.  **Clone the repository**
+
     ```bash
     git clone https://github.com/yourusername/project-admin.git
     cd project-admin
     ```
 
 2.  **Install Dependencies**
+
     ```bash
     composer install
     ```
 
 3.  **Environment Setup**
     Copy `.env.example` to `.env` and update your database credentials:
+
     ```bash
     cp .env.example .env
     ```
-    *Update `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` in `.env`.*
+
+    _Update `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` in `.env`._
 
 4.  **Database Setup**
     Run the included setup script to create the database and tables:
+
     ```bash
     php setup.php
     ```
@@ -103,7 +112,7 @@ Start the built-in development server:
 php -S localhost:8000 router.php
 ```
 
-Visit `http://localhost:8000` in your browser.
+Visit `http://localhost:8000` in your browser...!
 
 ### 🔑 Default Credentials
 
